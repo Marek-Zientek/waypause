@@ -1,0 +1,32 @@
+{
+  "expo": {
+    "name": "Waypause",
+    "slug": "waypause",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "scheme": "waypause",
+    "userInterfaceStyle": "automatic",
+    "splash": {
+      "resizeMode": "contain",
+      "backgroundColor": "#0284c7"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "pl.waypause.app"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#0284c7"
+      },
+      "package": "pl.waypause.app"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-secure-store"
+    ],
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}
