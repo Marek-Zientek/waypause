@@ -1,0 +1,16 @@
+<svg viewBox="0 0 224 60" xmlns="http://www.w3.org/2000/svg">
+  <!-- Sygnet: geometric W with orange stop point -->
+  <polyline
+    points="5,9 16,47 28,21 42,47 55,9"
+    fill="none"
+    stroke="#0369A1"
+    stroke-width="5.5"
+    stroke-linecap="round"
+    stroke-linejoin="round"/>
+  <circle cx="28" cy="21" r="6.5" fill="#EA580C"/>
+
+  <!-- Wordmark: Way (bold dark) + pause (regular blue) -->
+  <text x="72" y="39" font-family="'Outfit', 'Inter', -apple-system, sans-serif" font-size="28" letter-spacing="-0.4">
+    <tspan font-weight="700" fill="#0F172A">Way</tspan><tspan font-weight="400" fill="#0369A1">pause</tspan>
+  </text>
+</svg>

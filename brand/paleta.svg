@@ -1,0 +1,26 @@
+<svg viewBox="0 0 400 124" xmlns="http://www.w3.org/2000/svg">
+  <!-- Primary #0369A1 -->
+  <rect x="0" y="0" width="72" height="72" rx="8" fill="#0369A1"/>
+  <text x="36" y="90" font-family="'Inter', sans-serif" font-size="10" fill="#1E293B" text-anchor="middle" font-weight="600">Primary</text>
+  <text x="36" y="108" font-family="'Courier New', monospace" font-size="9" fill="#64748B" text-anchor="middle">#0369A1</text>
+
+  <!-- Akcent #EA580C -->
+  <rect x="82" y="0" width="72" height="72" rx="8" fill="#EA580C"/>
+  <text x="118" y="90" font-family="'Inter', sans-serif" font-size="10" fill="#1E293B" text-anchor="middle" font-weight="600">Akcent</text>
+  <text x="118" y="108" font-family="'Courier New', monospace" font-size="9" fill="#64748B" text-anchor="middle">#EA580C</text>
+
+  <!-- Nawigacja #0D9488 -->
+  <rect x="164" y="0" width="72" height="72" rx="8" fill="#0D9488"/>
+  <text x="200" y="90" font-family="'Inter', sans-serif" font-size="10" fill="#1E293B" text-anchor="middle" font-weight="600">Nawigacja</text>
+  <text x="200" y="108" font-family="'Courier New', monospace" font-size="9" fill="#64748B" text-anchor="middle">#0D9488</text>
+
+  <!-- Tło #F0F9FF -->
+  <rect x="246" y="0" width="72" height="72" rx="8" fill="#F0F9FF" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="282" y="90" font-family="'Inter', sans-serif" font-size="10" fill="#1E293B" text-anchor="middle" font-weight="600">Tło</text>
+  <text x="282" y="108" font-family="'Courier New', monospace" font-size="9" fill="#64748B" text-anchor="middle">#F0F9FF</text>
+
+  <!-- Tekst #0F172A -->
+  <rect x="328" y="0" width="72" height="72" rx="8" fill="#0F172A"/>
+  <text x="364" y="90" font-family="'Inter', sans-serif" font-size="10" fill="#1E293B" text-anchor="middle" font-weight="600">Tekst</text>
+  <text x="364" y="108" font-family="'Courier New', monospace" font-size="9" fill="#64748B" text-anchor="middle">#0F172A</text>
+</svg>
