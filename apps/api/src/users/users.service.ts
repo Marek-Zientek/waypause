@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { SupabaseService } from '../supabase/supabase.service';
+import type { SupabaseService } from '../supabase/supabase.service';
 import type { User } from '@waypause/types';
 
 @Injectable()

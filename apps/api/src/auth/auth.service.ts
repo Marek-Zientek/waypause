@@ -1,9 +1,9 @@
 import { Injectable, UnauthorizedException, ConflictException } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
-import { SupabaseService } from '../supabase/supabase.service';
+import type { JwtService } from '@nestjs/jwt';
+import type { SupabaseService } from '../supabase/supabase.service';
 import type { AuthTokens } from '@waypause/types';
-import { RegisterDto } from './dto/register.dto';
-import { LoginDto } from './dto/login.dto';
+import type { RegisterDto } from './dto/register.dto';
+import type { LoginDto } from './dto/login.dto';
 
 @Injectable()
 export class AuthService {
