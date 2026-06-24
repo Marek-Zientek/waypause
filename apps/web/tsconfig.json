@@ -3,6 +3,8 @@
   "compilerOptions": {
     "lib": ["ES2022", "dom", "dom.iterable"],
     "types": ["react", "react-dom", "node"],
+    "declaration": false,
+    "declarationMap": false,
     "module": "ESNext",
     "moduleResolution": "bundler",
     "jsx": "preserve",
