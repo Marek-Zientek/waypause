@@ -1,68 +1,67 @@
-# Plan pracy — Dzień 1: Setup środowiska
+# Plan pracy — Dzień 2: Baza danych i uruchomienie
 
-> Cel dnia: działające repo z trzema aplikacjami (web + mobile + backend) połączonymi z Supabase i pierwszą migracją bazy danych.
+> Cel dnia: działające środowisko lokalne (web + api), migracja bazy Supabase, Google OAuth, pierwszy test rejestracji.
 
 ---
 
-## Blok 1 — Monorepo i projekty (ok. 45 min z Claude)
+## Blok 0 — Zanim zaczniesz (zrób to sam, bez Claude)
 
-1. Stworzenie repozytorium GitHub `waypause` jako **monorepo** (pnpm workspaces)
-2. Inicjalizacja trzech aplikacji:
-   - `apps/web` → Next.js 14 (App Router, TypeScript, Tailwind CSS)
-   - `apps/mobile` → Expo SDK 51 (TypeScript, expo-router)
-   - `apps/api` → NestJS (TypeScript)
-3. Wspólny `packages/types` → współdzielone typy TypeScript między web/mobile/api
-4. ESLint + Prettier skonfigurowane dla całego monorepo
+### Zmienne środowiskowe — skopiuj i uzupełnij klucze
 
-## Blok 2 — Supabase (ok. 30 min — część ręczna)
+1. `apps/api/.env.example` → `apps/api/.env`
+   - `SUPABASE_ANON_KEY` — wejdź na supabase.com → projekt → Settings → API → anon/public
+   - `SUPABASE_SERVICE_KEY` — tamże → service_role
+   - `JWT_SECRET` — wpisz dowolny długi losowy ciąg znaków
 
-Kroki które WYKONUJESZ SAM (Claude nie może tego zrobić za Ciebie):
-- [ ] Wejdź na supabase.com → utwórz konto i nowy projekt "waypause"
-- [ ] Skopiuj: `SUPABASE_URL`, `SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_KEY`
-- [ ] W ustawieniach Supabase → Authentication → Providers → włącz Google OAuth
-- [ ] Zainstaluj Supabase CLI: `npm install -g supabase`
+2. `apps/web/.env.local.example` → `apps/web/.env.local`
+   - `NEXT_PUBLIC_SUPABASE_ANON_KEY` — ten sam anon key co wyżej
 
-Resztę (migracje, konfiguracja) Claude zrobi.
+3. `apps/mobile/.env.example` → `apps/mobile/.env`
+   - `EXPO_PUBLIC_SUPABASE_ANON_KEY` — ten sam anon key co wyżej
 
-## Blok 3 — Schemat bazy danych (ok. 20 min z Claude)
+### Google OAuth (Supabase)
+- Supabase dashboard → Authentication → Providers → Google → włącz
+- Potrzebujesz Client ID i Client Secret z Google Cloud Console (console.cloud.google.com)
+- W Google Cloud: APIs & Services → Credentials → Create OAuth 2.0 Client ID
+- Authorized redirect URI: `https://qiutuicvnolextyjufcr.supabase.co/auth/v1/callback`
 
-Pierwsza migracja Supabase:
-- Tabela `users` (id, email, created_at)
-- Tabela `routes` (id, user_id, origin, destination, travel_time_minutes, created_at)
-- Tabela `stops` (id, route_id, city, order_index, ai_suggested)
-- Tabela `parkings` z PostGIS (location GEOMETRY, name, type, price_per_hour, source, verified)
+---
+
+## Blok 1 — Migracja bazy danych (z Claude, ok. 20 min)
+
+Utworzenie tabel w Supabase:
+- `users` (id, email, created_at)
+- `routes` (id, user_id, origin, destination, travel_time_minutes, created_at)
+- `stops` (id, route_id, city, order_index, ai_suggested)
+- `parkings` z PostGIS (location GEOMETRY, name, type, price_per_hour, source, osm_id, verified)
 - Indeksy geospatial na `parkings.location`
+- Row Level Security (RLS) — użytkownik widzi tylko swoje trasy
 
-## Blok 4 — Rejestracja i logowanie F-1 (ok. 60 min z Claude)
+## Blok 2 — Uruchomienie lokalne (z Claude, ok. 15 min)
 
-- Ekran `/register` i `/login` w Next.js (web)
-- Ekran logowania w Expo (mobile)  
-- Supabase Auth: email/hasło + Google OAuth
-- NestJS `AuthModule` z `JwtAuthGuard`
-- Test: można się zarejestrować, zalogować, JWT działa na chronionym endpoincie
+```bash
+pnpm dev:web    # http://localhost:3000
+pnpm dev:api    # http://localhost:4000
+```
 
-## Blok 5 — GitHub Actions CI (ok. 15 min z Claude)
+Test manualny:
+- [ ] Strona główna się ładuje
+- [ ] Rejestracja email/hasło działa
+- [ ] Logowanie działa
+- [ ] `/auth/me` na API zwraca dane zalogowanego użytkownika
 
-- Workflow: na każdy PR → lint + type-check
-- Workflow: na merge do `main` → auto-deploy Vercel (web)
+## Blok 3 — GitHub Secrets dla CI/CD (z Claude, ok. 10 min)
+
+Dodaj w repozytorium (GitHub → Settings → Secrets and variables → Actions):
+- `VERCEL_TOKEN` — z vercel.com → Settings → Tokens
+- `VERCEL_ORG_ID` i `VERCEL_PROJECT_ID` — po połączeniu projektu z Vercel
+
+## Blok 4 — Deploy web na Vercel (z Claude, ok. 15 min)
+
+- Połącz repo z Vercel (vercel.com → Import Project → GitHub)
+- Ustaw env variables w Vercel (te same co w `.env.local`)
+- Pierwszy deploy
 
 ---
 
-## Czego NIE robimy jutro
-
-- Nie integrujemy Claude API (to Dzień 2–3)
-- Nie dotykamy parkingów ani map (to Dzień 3–4)
-- Nie instalujemy żadnych dodatkowych paczek bez planu
-
----
-
-## Zanim zaczniesz jutrzejszą sesję
-
-Przygotuj:
-1. Konto GitHub (jeśli nie masz — github.com → Sign up)
-2. Konto Supabase (supabase.com → Sign up przez GitHub)
-3. Konto Google Cloud (console.cloud.google.com) — potrzebne do Google Maps Key (możemy to zrobić w Dniu 2)
-4. Node.js 20 LTS zainstalowany na komputerze — sprawdź: `node --version`
-5. pnpm zainstalowany: `npm install -g pnpm`
-
-> _Plan wygenerowany 2026-06-18 · Dzień 1 z budowy Waypause MVP_
+> _Zaktualizowano 2026-06-23 · Dzień 1 ukończony — monorepo, auth code, CI na GitHub_
