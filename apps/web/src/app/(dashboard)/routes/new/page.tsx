@@ -43,6 +43,7 @@ export default function NewRoutePage() {
     }
 
     router.push('/dashboard');
+    router.refresh();
   }
 
   return (
