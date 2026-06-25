@@ -28,22 +28,25 @@ export default function NewRoutePage() {
       return;
     }
 
-    const { error } = await supabase.from('routes').insert({
-      user_id: user.id,
-      origin: origin.trim(),
-      destination: destination.trim(),
-      travel_time_minutes: travelTime ? parseInt(travelTime) : null,
-    });
+    const { data, error } = await supabase
+      .from('routes')
+      .insert({
+        user_id: user.id,
+        origin: origin.trim(),
+        destination: destination.trim(),
+        travel_time_minutes: travelTime ? parseInt(travelTime) : null,
+      })
+      .select('id')
+      .single();
 
     setLoading(false);
 
-    if (error) {
+    if (error || !data) {
       setError('Nie udało się zapisać trasy. Spróbuj ponownie.');
       return;
     }
 
-    router.push('/dashboard');
-    router.refresh();
+    router.push(`/routes/${data.id}`);
   }
 
   return (
