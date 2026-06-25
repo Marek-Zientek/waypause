@@ -2,7 +2,7 @@ import { Controller, Post, Body, HttpCode, HttpStatus, UseGuards, Get, Req } fro
 import { AuthService } from './auth.service';
 import type { RegisterDto } from './dto/register.dto';
 import type { LoginDto } from './dto/login.dto';
-import { JwtAuthGuard } from './jwt-auth.guard';
+import { SupabaseAuthGuard } from './supabase-auth.guard';
 import type { Request } from 'express';
 
 @Controller('auth')
@@ -27,7 +27,7 @@ export class AuthController {
   }
 
   @Get('me')
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(SupabaseAuthGuard)
   me(@Req() req: Request & { user: { sub: string; email: string } }) {
     return { id: req.user.sub, email: req.user.email };
   }
